@@ -15,10 +15,6 @@ struct SliderView: UIViewRepresentable {
         let slider = UISlider()
         slider.minimumValue = 0
         slider.maximumValue = 100
-        slider.thumbTintColor = UIColor(red: 1,
-                                        green: 0,
-                                        blue: 0,
-                                        alpha: 0.5)
         slider.addTarget(context.coordinator,
                          action: #selector(Coordinator.changeSliderValue),
                          for: .valueChanged)

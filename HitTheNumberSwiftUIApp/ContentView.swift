@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var targetValue = Int.random(in: 0...100)
-    @State private var currentValue: Float = 50
-    @State private var score: Int = 1
+    @State private var currentValue = Float.random(in: 0...100)
+    @State private var score = 0
     @State private var showAlert = false
     
-    var text: String {
+    private var text: String {
         "Подвиньте слайдер как можно ближе к: \(targetValue)"
     }
     
@@ -23,25 +23,25 @@ struct ContentView: View {
             HStack {
                 Text("0")
                 SliderView(currentValue: $currentValue, score: $score)
+                    .onAppear {
+                        score = computerScore()
+                    }
                     .onChange(of: currentValue) { _ in
                         score = computerScore()
                     }
                 Text("100")
             }
-            Button(action: {showAlert.toggle()}) {
-                Text("Проверь меня!")
+            Button("Проверь меня!") {
+                showAlert.toggle()
             }
             .alert(isPresented: $showAlert) {
-                Alert(title: Text("Your score"),
+                Alert(title: Text("Ваш счёт"),
                       message: Text("\(computerScore())"))
             }
-            Button(action: {targetValue = Int.random(in: 0...100)}) {
-                Text("Начать заново")
+            Button("Начать заново") {
+                targetValue = Int.random(in: 0...100)
+                score = computerScore()
             }
-            //
-            Text("currentValue: \(lround(Double(currentValue)))")
-            Text("score: \(score)")
-            //
         }
         .padding()
     }
