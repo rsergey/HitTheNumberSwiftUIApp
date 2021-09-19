@@ -10,25 +10,14 @@ import SwiftUI
 struct ContentView: View {
     @State private var targetValue = Int.random(in: 0...100)
     @State private var currentValue = Float.random(in: 0...100)
-    @State private var score = 0
     @State private var showAlert = false
-    
-    private var text: String {
-        "Подвиньте слайдер как можно ближе к: \(targetValue)"
-    }
     
     var body: some View {
         VStack(spacing: 20) {
-            Text(text)
+            Text("Подвиньте слайдер как можно ближе к: \(targetValue)")
             HStack {
                 Text("0")
-                SliderView(currentValue: $currentValue, score: $score)
-                    .onAppear {
-                        score = computerScore()
-                    }
-                    .onChange(of: currentValue) { _ in
-                        score = computerScore()
-                    }
+                SliderView(currentValue: $currentValue, score: computerScore())
                 Text("100")
             }
             Button("Проверь меня!") {
@@ -40,7 +29,6 @@ struct ContentView: View {
             }
             Button("Начать заново") {
                 targetValue = Int.random(in: 0...100)
-                score = computerScore()
             }
         }
         .padding()

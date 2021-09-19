@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SliderView: UIViewRepresentable {
     @Binding var currentValue: Float
-    @Binding var score: Int
+    var score: Int
     
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
@@ -51,6 +51,6 @@ extension SliderView {
 
 struct UISliderView_Previews: PreviewProvider {
     static var previews: some View {
-        SliderView(currentValue: .constant(40), score: .constant(60))
+        SliderView(currentValue: .constant(40), score: 60)
     }
 }
